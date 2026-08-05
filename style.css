@@ -1,32 +1,3 @@
-/* ── CSS variables (light/dark) ── */
-:root {
-    --bg-primary: #0b0d15;
-    --bg-card: rgba(255, 255, 255, 0.04);
-    --bg-card-hover: rgba(255, 255, 255, 0.07);
-    --border-card: rgba(255, 255, 255, 0.06);
-    --text-primary: #e4e7f0;
-    --text-secondary: rgba(255, 255, 255, 0.65);
-    --text-muted: rgba(255, 255, 255, 0.3);
-    --shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
-    --glow: rgba(255, 255, 255, 0.03);
-    --accent-purple: #6c5ce7;
-    --accent-teal: #00cec9;
-    --badge-bg: rgba(255, 255, 255, 0.06);
-}
-
-[data-theme="light"] {
-    --bg-primary: #f0f2f8;
-    --bg-card: rgba(255, 255, 255, 0.7);
-    --bg-card-hover: rgba(255, 255, 255, 0.9);
-    --border-card: rgba(0, 0, 0, 0.08);
-    --text-primary: #1a1d2b;
-    --text-secondary: rgba(0, 0, 0, 0.6);
-    --text-muted: rgba(0, 0, 0, 0.35);
-    --shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-    --glow: rgba(0, 0, 0, 0.02);
-    --badge-bg: rgba(0, 0, 0, 0.05);
-}
-
 /* ── reset & base ── */
 *,
 *::before,
@@ -38,47 +9,20 @@
 
 body {
     font-family: 'Inter', sans-serif;
-    background: var(--bg-primary);
-    color: var(--text-primary);
+    background: #0b0d15;
+    color: #e4e7f0;
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 2rem 1.5rem;
-    transition: background 0.3s ease, color 0.3s ease;
     background-image:
         radial-gradient(ellipse at 20% 50%, rgba(88, 60, 220, 0.12) 0%, transparent 60%),
         radial-gradient(ellipse at 80% 20%, rgba(0, 200, 200, 0.08) 0%, transparent 50%),
         radial-gradient(ellipse at 50% 80%, rgba(255, 100, 150, 0.06) 0%, transparent 50%);
 }
 
-/* ── theme toggle ── */
-.theme-toggle {
-    position: fixed;
-    top: 1.2rem;
-    right: 1.5rem;
-    background: var(--bg-card);
-    border: 1px solid var(--border-card);
-    border-radius: 50%;
-    width: 44px;
-    height: 44px;
-    font-size: 1.2rem;
-    color: var(--text-primary);
-    cursor: pointer;
-    backdrop-filter: blur(6px);
-    transition: all 0.25s ease;
-    z-index: 999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: var(--shadow);
-}
-.theme-toggle:hover {
-    background: var(--bg-card-hover);
-    transform: scale(1.05);
-}
-
-/* ── bento grid ── */
+/* ── main grid (bento) ── */
 .bento {
     max-width: 1200px;
     width: 100%;
@@ -88,16 +32,16 @@ body {
     animation: fadeUp 0.8s ease-out forwards;
 }
 
-/* ── cards ── */
+/* ── all cards ── */
 .card {
-    background: var(--bg-card);
+    background: rgba(255, 255, 255, 0.04);
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
-    border: 1px solid var(--border-card);
+    border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: 1.75rem;
     padding: 1.75rem 1.5rem;
-    transition: transform 0.25s ease, box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s ease;
-    box-shadow: var(--shadow);
+    transition: transform 0.25s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
     display: flex;
     flex-direction: column;
     position: relative;
@@ -108,21 +52,16 @@ body {
     transform: translateY(-5px);
     border-color: rgba(255, 255, 255, 0.15);
     box-shadow: 0 16px 50px rgba(0, 0, 0, 0.5);
-    background: var(--bg-card-hover);
 }
 
-[data-theme="light"] .card:hover {
-    border-color: rgba(0, 0, 0, 0.15);
-    box-shadow: 0 16px 50px rgba(0, 0, 0, 0.1);
-}
-
+/* subtle glow on hover */
 .card::after {
     content: '';
     position: absolute;
     inset: 0;
     border-radius: 1.75rem;
     background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-            var(--glow) 0%,
+            rgba(255, 255, 255, 0.03) 0%,
             transparent 70%);
     opacity: 0;
     transition: opacity 0.4s ease;
@@ -132,7 +71,7 @@ body {
     opacity: 1;
 }
 
-/* ── card variants ── */
+/* ── card variations ── */
 .card--avatar {
     grid-column: span 1;
     grid-row: span 1;
@@ -142,33 +81,35 @@ body {
     justify-content: center;
     text-align: center;
 }
-[data-theme="light"] .card--avatar {
-    background: linear-gradient(145deg, rgba(88, 60, 220, 0.15), rgba(200, 200, 255, 0.2));
-}
 
 .card--about {
     grid-column: span 2;
     grid-row: span 1;
+    background: rgba(255, 255, 255, 0.03);
 }
 
 .card--skills {
     grid-column: span 1;
     grid-row: span 2;
+    background: rgba(255, 255, 255, 0.03);
 }
 
 .card--projects {
     grid-column: span 2;
     grid-row: span 2;
+    background: rgba(255, 255, 255, 0.03);
 }
 
 .card--contact {
     grid-column: span 1;
     grid-row: span 1;
+    background: rgba(255, 255, 255, 0.03);
 }
 
 .card--social {
     grid-column: span 1;
     grid-row: span 1;
+    background: rgba(255, 255, 255, 0.03);
 }
 
 .card--quote {
@@ -182,6 +123,7 @@ body {
 .card--stats {
     grid-column: span 1;
     grid-row: span 1;
+    background: rgba(255, 255, 255, 0.03);
 }
 
 /* ── avatar ── */
@@ -189,7 +131,7 @@ body {
     width: 90px;
     height: 90px;
     border-radius: 50%;
-    background: linear-gradient(135deg, var(--accent-purple), var(--accent-teal));
+    background: linear-gradient(135deg, #6c5ce7, #00cec9);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -201,32 +143,27 @@ body {
     user-select: none;
 }
 
-.name {
+.card--avatar .name {
     font-size: 1.15rem;
     font-weight: 700;
     letter-spacing: -0.02em;
     margin-top: 0.1rem;
 }
-.tag {
+.card--avatar .tag {
     font-size: 0.75rem;
-    color: var(--text-muted);
+    color: rgba(255, 255, 255, 0.5);
     font-weight: 500;
     letter-spacing: 0.04em;
     text-transform: uppercase;
     margin-top: 0.1rem;
 }
-.location {
-    font-size: 0.7rem;
-    color: var(--text-muted);
-    margin-top: 0.2rem;
-}
 
-/* ── typography ── */
+/* ── typography helpers ── */
 .card-title {
     font-size: 0.7rem;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: var(--text-muted);
+    color: rgba(255, 255, 255, 0.3);
     font-weight: 600;
     margin-bottom: 0.75rem;
 }
@@ -239,42 +176,26 @@ body {
 }
 
 .card-text {
-    color: var(--text-secondary);
+    color: rgba(255, 255, 255, 0.65);
     font-size: 0.95rem;
     line-height: 1.6;
 }
+
 .card-text strong {
-    color: var(--text-primary);
+    color: #e4e7f0;
     font-weight: 600;
 }
 
-.gradient-line {
-    width: 40px;
-    height: 3px;
-    border-radius: 4px;
-    background: linear-gradient(90deg, var(--accent-purple), var(--accent-teal));
-    margin: 0.4rem 0 0.6rem 0;
-}
-.gradient-line.centered {
-    margin: 0.4rem auto 0.6rem auto;
-}
-
-/* ── badges ── */
-.badge-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.3rem;
-    margin-top: 0.6rem;
-}
 .badge {
     display: inline-block;
-    background: var(--badge-bg);
+    background: rgba(255, 255, 255, 0.06);
     padding: 0.25rem 0.75rem;
     border-radius: 100px;
     font-size: 0.75rem;
     font-weight: 500;
-    color: var(--text-secondary);
-    border: 1px solid var(--border-card);
+    color: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    margin: 0.15rem 0.1rem;
 }
 
 /* ── skill chips ── */
@@ -283,33 +204,28 @@ body {
     flex-wrap: wrap;
     gap: 0.5rem;
     margin-top: 0.5rem;
-    flex-direction: column;
 }
-.chip {
-    background: var(--badge-bg);
+.skill-chips .chip {
+    background: rgba(255, 255, 255, 0.06);
     padding: 0.35rem 1rem;
     border-radius: 100px;
     font-size: 0.8rem;
     font-weight: 500;
-    color: var(--text-primary);
-    border: 1px solid var(--border-card);
-    transition: background 0.2s, border-color 0.2s;
+    color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: background 0.2s;
 }
-.chip:hover {
-    background: rgba(108, 92, 231, 0.2);
+.skill-chips .chip:hover {
+    background: rgba(108, 92, 231, 0.25);
     border-color: rgba(108, 92, 231, 0.3);
 }
-.chip i {
+.chip .fa-brands,
+.chip .fa-solid {
     margin-right: 0.4rem;
     font-size: 0.8rem;
 }
-.skill-footer {
-    margin-top: 0.6rem;
-    font-size: 0.7rem;
-    color: var(--text-muted);
-}
 
-/* ── projects ── */
+/* ── project items ── */
 .project-list {
     display: flex;
     flex-direction: column;
@@ -322,12 +238,12 @@ body {
     gap: 1rem;
     padding: 0.6rem 0.8rem;
     border-radius: 1rem;
-    background: var(--bg-card);
-    border: 1px solid var(--border-card);
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.04);
     transition: background 0.2s, border-color 0.2s;
 }
 .project-item:hover {
-    background: var(--bg-card-hover);
+    background: rgba(255, 255, 255, 0.05);
     border-color: rgba(255, 255, 255, 0.08);
 }
 .project-icon {
@@ -351,23 +267,18 @@ body {
 }
 .project-info .desc {
     font-size: 0.8rem;
-    color: var(--text-secondary);
+    color: rgba(255, 255, 255, 0.5);
 }
 .project-link {
-    color: var(--text-muted);
+    color: rgba(255, 255, 255, 0.25);
     font-size: 0.9rem;
     transition: color 0.2s;
 }
 .project-link:hover {
     color: #a78bfa;
 }
-.project-footer {
-    margin-top: 0.4rem;
-    font-size: 0.75rem;
-    color: var(--text-muted);
-}
 
-/* ── contact ── */
+/* ── contact / social ── */
 .contact-row {
     display: flex;
     align-items: center;
@@ -376,7 +287,7 @@ body {
     flex-wrap: wrap;
 }
 .contact-row a {
-    color: var(--text-secondary);
+    color: rgba(255, 255, 255, 0.5);
     font-size: 0.9rem;
     text-decoration: none;
     display: inline-flex;
@@ -384,22 +295,16 @@ body {
     gap: 0.4rem;
     padding: 0.3rem 0.8rem;
     border-radius: 100px;
-    background: var(--badge-bg);
-    border: 1px solid var(--border-card);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.04);
     transition: all 0.2s;
 }
 .contact-row a:hover {
-    color: var(--text-primary);
+    color: #fff;
     background: rgba(108, 92, 231, 0.15);
     border-color: rgba(108, 92, 231, 0.2);
 }
-.contact-note {
-    margin-top: 0.4rem;
-    font-size: 0.75rem;
-    color: var(--text-muted);
-}
 
-/* ── social ── */
 .social-icons {
     display: flex;
     gap: 0.6rem;
@@ -412,23 +317,18 @@ body {
     width: 42px;
     height: 42px;
     border-radius: 12px;
-    background: var(--badge-bg);
-    color: var(--text-secondary);
+    background: rgba(255, 255, 255, 0.04);
+    color: rgba(255, 255, 255, 0.5);
     font-size: 1.2rem;
-    border: 1px solid var(--border-card);
+    border: 1px solid rgba(255, 255, 255, 0.04);
     transition: all 0.25s;
     text-decoration: none;
 }
 .social-icons a:hover {
     background: rgba(108, 92, 231, 0.15);
-    color: var(--text-primary);
+    color: #fff;
     border-color: rgba(108, 92, 231, 0.2);
     transform: translateY(-3px);
-}
-.social-footer {
-    margin-top: 0.4rem;
-    font-size: 0.7rem;
-    color: var(--text-muted);
 }
 
 /* ── quote ── */
@@ -436,7 +336,7 @@ body {
     font-size: 1.15rem;
     font-weight: 500;
     line-height: 1.4;
-    color: var(--text-primary);
+    color: rgba(255, 255, 255, 0.85);
     font-style: italic;
 }
 .quote-text .fa-quote-left {
@@ -446,35 +346,24 @@ body {
 }
 .quote-author {
     font-size: 0.8rem;
-    color: var(--text-muted);
+    color: rgba(255, 255, 255, 0.35);
     margin-top: 0.3rem;
     font-style: normal;
 }
-.quote-footer {
-    margin-top: 0.3rem;
-    font-size: 0.7rem;
-    color: var(--text-muted);
-}
 
 /* ── stats ── */
-.stats-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    margin-top: 0.2rem;
-}
 .stat-number {
     font-size: 2.2rem;
     font-weight: 800;
     letter-spacing: -0.03em;
-    background: linear-gradient(135deg, var(--accent-purple), var(--accent-teal));
+    background: linear-gradient(135deg, #a78bfa, #00cec9);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
 .stat-label {
     font-size: 0.75rem;
-    color: var(--text-muted);
+    color: rgba(255, 255, 255, 0.4);
     text-transform: uppercase;
     letter-spacing: 0.04em;
 }
@@ -491,7 +380,7 @@ body {
     }
 }
 
-/* ── responsiveness ── */
+/* ── responsive ── */
 @media (max-width: 1000px) {
     .bento {
         grid-template-columns: repeat(3, 1fr);
@@ -604,11 +493,22 @@ body {
         height: 38px;
         font-size: 1rem;
     }
-    .theme-toggle {
-        top: 0.8rem;
-        right: 0.8rem;
-        width: 38px;
-        height: 38px;
-        font-size: 1rem;
-    }
+}
+
+/* small decorative gradient line */
+.gradient-line {
+    width: 40px;
+    height: 3px;
+    border-radius: 4px;
+    background: linear-gradient(90deg, #6c5ce7, #00cec9);
+    margin: 0.4rem 0 0.6rem 0;
+}
+.gradient-line.centered {
+    margin: 0.4rem auto 0.6rem auto;
+}
+
+/* mouse tracking for glow (js) */
+.card {
+    --mouse-x: 50%;
+    --mouse-y: 50%;
 }
